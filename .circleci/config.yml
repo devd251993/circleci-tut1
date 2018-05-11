@@ -2,13 +2,14 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/go:1.9
+      - image: circleci/golang:1.9
+    working_directory: /go/src/github.com/prasannamahajan/circleci-tut1
     steps:
       - checkout
       - run: go build -o sum
   test:
     docker:
-      - image: circleci/go:1.9
+      - image: circleci/golang:1.9
     steps:
       - checkout
       - run: go test
