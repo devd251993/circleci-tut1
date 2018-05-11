@@ -1,34 +1,20 @@
 version: 2
 jobs:
-  build-job:
+  build:
+    docker:
+      - image: circleci/go:1.9
     steps:
       - checkout
-      - run:
-          name: Build 
-          command: |
-            git build -o sum
-      - run:
-	  name: Test
-	  command: |
-	    go test -v
-
-  deploy-job:
+      - run: go build -o sum
+  test:
+    docker:
+      - image: circleci/go:1.9
     steps:
       - checkout
-      - run:
-          name: Deploy to GKE
-          command: |
-            ./sum
-
+      - run: go test
 workflows:
   version: 2
-  build-deploy:
+  build_and_test:
     jobs:
-      - build-job
-      - deploy-job:
-          requires:
-            - build-job
-          filters:
-            branches:
-              only: master
-
+      - build
+      - test
