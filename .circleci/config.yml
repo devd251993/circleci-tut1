@@ -8,8 +8,6 @@ jobs:
       - checkout
       - run: go build -o sum
   test:
-    docker:
-      - image: circleci/golang:1.9
     steps:
       - checkout
       - run: go test
